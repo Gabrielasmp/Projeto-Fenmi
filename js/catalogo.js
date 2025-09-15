@@ -31,11 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return notaB - notaA; // maior avaliação primeiro
       }
       if (criterio === "preco") {
-        // aqui só de exemplo: pega pelo nome e ordena alfabeticamente (já que não tem preço real no HTML)
-        return a.querySelector("h3").textContent.localeCompare(
-          b.querySelector("h3").textContent
+        const precoA = parseFloat(
+          a.querySelector(".preco").textContent.replace("R$", "").replace(",", ".").trim()
         );
+        const precoB = parseFloat(
+          b.querySelector(".preco").textContent.replace("R$", "").replace(",", ".").trim()
+        );
+        return precoA - precoB; // menor preço primeiro
       }
+      
       if (criterio === "recentes") {
         return Math.random() - 0.5; // mock aleatório
       }
@@ -55,3 +59,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sortSelect.addEventListener("change", ordenar);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const chips = document.querySelectorAll(".chip");
+  const cards = document.querySelectorAll(".card-servico");
+
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const categoria = chip.textContent.trim().split("•")[0].trim().toLowerCase();
+
+      cards.forEach(card => {
+        const titulo = card.querySelector("h3").textContent.toLowerCase();
+        if (titulo.includes(categoria)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // Marca visualmente o chip selecionado
+      chips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+    });
+  });
+});
+

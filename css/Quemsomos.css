@@ -79,8 +79,6 @@ body {
   }
  
  
- 
- 
   .actions {
     display: flex;
     gap: 1rem;
@@ -137,7 +135,6 @@ body {
     padding-bottom: 100px;
  
   }
- 
  
  
   .hero-text span {
